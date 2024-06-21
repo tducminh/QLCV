@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { nhomctClient } from './services/nhomct/nhomct.shared'
+export type { Nhomct, NhomctData, NhomctQuery, NhomctPatch } from './services/nhomct/nhomct.shared'
+
 import { taskcommentsClient } from './services/task-comments/task-comments.shared'
 export type {
   Taskcomments,
@@ -55,5 +58,6 @@ export const createClient = <Configuration = any,>(
   client.configure(phongClient)
   client.configure(taskClient)
   client.configure(taskcommentsClient)
+  client.configure(nhomctClient)
   return client
 }

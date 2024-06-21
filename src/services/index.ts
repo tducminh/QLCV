@@ -1,3 +1,4 @@
+import { nhomct } from './nhomct/nhomct'
 import { taskcomments } from './task-comments/task-comments'
 import { task } from './tasks/tasks'
 import { phong } from './phong/phong'
@@ -7,6 +8,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(nhomct)
   app.configure(taskcomments)
   app.configure(task)
   app.configure(phong)
