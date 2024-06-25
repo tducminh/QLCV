@@ -39,7 +39,7 @@ export const taskResolver = resolve<Task, HookContext<TaskService>>({
 export const taskExternalResolver = resolve<Task, HookContext<TaskService>>({})
 
 // Schema for creating new entries
-export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate', 'completed', 'note', 'userCreated'], {
+export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate', 'completed', 'note', 'userCreated', 'point'], {
   $id: 'TaskData'
 })
 export type TaskData = Static<typeof taskDataSchema>
@@ -71,7 +71,7 @@ export const taskPatchResolver = resolve<Task, HookContext<TaskService>>({})
 
 // Schema for allowed query properties
 export const taskQueryProperties = Type.Pick(taskSchema, ['id', 'text', 'description', 'assignedTo',
-  'dueDate', 'completed', 'note', 'userCreated'], {
+  'dueDate', 'completed', 'note', 'userCreated', 'point'], {
 
 })
 export const taskQuerySchema = Type.Intersect(

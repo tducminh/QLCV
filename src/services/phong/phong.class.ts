@@ -8,7 +8,9 @@ import type { Phong, PhongData, PhongPatch, PhongQuery } from './phong.schema'
 
 export type { Phong, PhongData, PhongPatch, PhongQuery }
 
-export interface PhongParams extends KnexAdapterParams<PhongQuery> {}
+export interface PhongParams extends KnexAdapterParams<PhongQuery> {
+  donvi: any
+}
 
 // By default calls the standard Knex adapter service methods but can be customized with your own functionality.
 export class PhongService<ServiceParams extends Params = PhongParams> extends KnexService<
@@ -16,7 +18,7 @@ export class PhongService<ServiceParams extends Params = PhongParams> extends Kn
   PhongData,
   PhongParams,
   PhongPatch
-> {}
+> { }
 
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {

@@ -34,7 +34,7 @@ export const phong = (app: Application) => {
   app.service(phongPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
+
         schemaHooks.resolveExternal(phongExternalResolver),
         schemaHooks.resolveResult(phongResolver)
       ]
@@ -43,8 +43,8 @@ export const phong = (app: Application) => {
       all: [schemaHooks.validateQuery(phongQueryValidator), schemaHooks.resolveQuery(phongQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(phongDataValidator), schemaHooks.resolveData(phongDataResolver)],
-      patch: [schemaHooks.validateData(phongPatchValidator), schemaHooks.resolveData(phongPatchResolver)],
+      create: [authenticate('jwt'), schemaHooks.validateData(phongDataValidator), schemaHooks.resolveData(phongDataResolver)],
+      patch: [authenticate('jwt'), schemaHooks.validateData(phongPatchValidator), schemaHooks.resolveData(phongPatchResolver)],
       remove: []
     },
     after: {

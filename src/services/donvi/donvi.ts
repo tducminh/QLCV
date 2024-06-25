@@ -34,7 +34,7 @@ export const donvi = (app: Application) => {
   app.service(donviPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
+
         schemaHooks.resolveExternal(donviExternalResolver),
         schemaHooks.resolveResult(donviResolver)
       ]
@@ -43,9 +43,9 @@ export const donvi = (app: Application) => {
       all: [schemaHooks.validateQuery(donviQueryValidator), schemaHooks.resolveQuery(donviQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(donviDataValidator), schemaHooks.resolveData(donviDataResolver)],
-      patch: [schemaHooks.validateData(donviPatchValidator), schemaHooks.resolveData(donviPatchResolver)],
-      remove: []
+      create: [authenticate('jwt'), schemaHooks.validateData(donviDataValidator), schemaHooks.resolveData(donviDataResolver)],
+      patch: [authenticate('jwt'), schemaHooks.validateData(donviPatchValidator), schemaHooks.resolveData(donviPatchResolver)],
+      remove: [authenticate('jwt'),]
     },
     after: {
       all: []
