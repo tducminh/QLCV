@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('ten')
     table.string('ghichu')
     table.string('createdAt')
+    table.integer('dvId')
   })
 }
 

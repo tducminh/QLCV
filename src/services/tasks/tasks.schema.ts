@@ -15,6 +15,7 @@ export const taskSchema = Type.Object(
     text: Type.String(),
     description: Type.Optional(Type.String()),
     assignedTo: Type.Optional(Type.String()),
+    idAssignedTo: Type.Optional(Type.String()),
     dueDate: Type.Optional(Type.String({ format: 'date-time' })),
     completed: Type.Optional(Type.Boolean()),
     note: Type.Optional(Type.String()),
@@ -39,7 +40,7 @@ export const taskResolver = resolve<Task, HookContext<TaskService>>({
 export const taskExternalResolver = resolve<Task, HookContext<TaskService>>({})
 
 // Schema for creating new entries
-export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate', 'completed', 'note', 'userCreated', 'point'], {
+export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate', 'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo'], {
   $id: 'TaskData'
 })
 export type TaskData = Static<typeof taskDataSchema>
@@ -71,7 +72,7 @@ export const taskPatchResolver = resolve<Task, HookContext<TaskService>>({})
 
 // Schema for allowed query properties
 export const taskQueryProperties = Type.Pick(taskSchema, ['id', 'text', 'description', 'assignedTo',
-  'dueDate', 'completed', 'note', 'userCreated', 'point'], {
+  'dueDate', 'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo'], {
 
 })
 export const taskQuerySchema = Type.Intersect(
