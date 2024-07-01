@@ -17,6 +17,7 @@ export const taskcommentsSchema = Type.Object(
     TaskId: Type.Number(),
     UserId: Type.Number(),
     user: Type.Ref(userSchema),
+    uploadId: Type.Optional(Type.Number()),
   },
   { $id: 'Taskcomments', additionalProperties: false }
 )
@@ -32,7 +33,7 @@ export const taskcommentsResolver = resolve<Taskcomments, HookContext<Taskcommen
 export const taskcommentsExternalResolver = resolve<Taskcomments, HookContext<TaskcommentsService>>({})
 
 // Schema for creating new entries
-export const taskcommentsDataSchema = Type.Pick(taskcommentsSchema, ['text', 'dateCreated', 'TaskId', 'UserId'], {
+export const taskcommentsDataSchema = Type.Pick(taskcommentsSchema, ['text', 'dateCreated', 'TaskId', 'UserId', 'uploadId'], {
   $id: 'TaskcommentsData'
 })
 export type TaskcommentsData = Static<typeof taskcommentsDataSchema>
@@ -58,7 +59,7 @@ export const taskcommentsPatchValidator = getValidator(taskcommentsPatchSchema, 
 export const taskcommentsPatchResolver = resolve<Taskcomments, HookContext<TaskcommentsService>>({})
 
 // Schema for allowed query properties
-export const taskcommentsQueryProperties = Type.Pick(taskcommentsSchema, ['id', 'text', 'dateCreated', 'TaskId', 'UserId'])
+export const taskcommentsQueryProperties = Type.Pick(taskcommentsSchema, ['id', 'text', 'dateCreated', 'TaskId', 'UserId', 'uploadId'])
 export const taskcommentsQuerySchema = Type.Intersect(
   [
     querySyntax(taskcommentsQueryProperties),

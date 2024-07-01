@@ -31,7 +31,8 @@ app.configure(
   socketio({
     cors: {
       origin: app.get('origins')
-    }
+    },
+    maxHttpBufferSize: 1e8
   })
 )
 app.configure(mssql)

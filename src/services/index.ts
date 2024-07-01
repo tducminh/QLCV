@@ -1,3 +1,4 @@
+import { upload } from './upload/upload'
 import { nhomct } from './nhomct/nhomct'
 import { taskcomments } from './task-comments/task-comments'
 import { task } from './tasks/tasks'
@@ -8,6 +9,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(upload)
   app.configure(nhomct)
   app.configure(taskcomments)
   app.configure(task)
