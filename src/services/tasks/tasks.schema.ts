@@ -34,7 +34,8 @@ export const taskResolver = resolve<Task, HookContext<TaskService>>({
   user: virtual(async (task, context) => {
     // Associate the user that sent the task
     return context.app.service('users').get(task.userId)
-  })
+  }),
+
 })
 
 export const taskExternalResolver = resolve<Task, HookContext<TaskService>>({})
@@ -59,7 +60,10 @@ export const taskDataResolver = resolve<Task, HookContext<TaskService>>({
     if (context.params.user) {
       return context.params.user.Ma
     }
-  }
+  },
+
+
+
 })
 
 // Schema for updating existing entries
@@ -77,9 +81,12 @@ export const taskQueryProperties = Type.Pick(taskSchema, ['id', 'text', 'descrip
 })
 export const taskQuerySchema = Type.Intersect(
   [
-    querySyntax(taskQueryProperties),
+    querySyntax(taskQueryProperties,
+      { idAssignedTo: { $like: Type.String() } },
+      { text: { $like: Type.String() } }
+    ),
     // Add additional query properties here
-    Type.Object({}, { additionalProperties: false })
+    Type.Object({})
   ],
   { additionalProperties: false }
 )

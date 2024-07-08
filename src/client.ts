@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { thongbaoClient } from './services/thongbao/thongbao.shared'
+export type {
+  Thongbao,
+  ThongbaoData,
+  ThongbaoQuery,
+  ThongbaoPatch
+} from './services/thongbao/thongbao.shared'
+
 import { uploadClient } from './services/upload/upload.shared'
 export type { Upload, UploadData, UploadQuery, UploadPatch } from './services/upload/upload.shared'
 
@@ -67,5 +75,6 @@ export const createClient = <Configuration = any,>(
   client.configure(nhomctClient)
   client.configure(uploadClient)
   client.configure(uploadClient)
+  client.configure(thongbaoClient)
   return client
 }
