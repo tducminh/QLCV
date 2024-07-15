@@ -4,6 +4,15 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { reportClient } from './services/report/report.shared'
+export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
+
+import { reportClient } from './services/report/report.shared'
+export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
+
+import { reportClient } from './services/report/report.shared'
+export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
+
 import { thongbaoClient } from './services/thongbao/thongbao.shared'
 export type {
   Thongbao,
@@ -76,5 +85,8 @@ export const createClient = <Configuration = any,>(
   client.configure(uploadClient)
   client.configure(uploadClient)
   client.configure(thongbaoClient)
+  client.configure(reportClient)
+  client.configure(reportClient)
+  client.configure(reportClient)
   return client
 }

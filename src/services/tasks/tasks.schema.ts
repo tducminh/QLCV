@@ -61,9 +61,12 @@ export const taskDataResolver = resolve<Task, HookContext<TaskService>>({
       return context.params.user.Ma
     }
   },
-
-
-
+  completed: async () => false,
+  taskId: async (_value, _message, context) => {
+    if (_value) {
+      return _value;
+    }
+  }
 })
 
 // Schema for updating existing entries

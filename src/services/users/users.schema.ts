@@ -34,16 +34,22 @@ export type User = Static<typeof userSchema>
 export const userValidator = getValidator(userSchema, dataValidator)
 export const userResolver = resolve<User, HookContext<UserService>>({
   donvi: virtual(async (user, context) => {
-    // Associate the Donvi that Phong belongs to
+    // Associate the Donvi that User belongs to
     if (user.DonviId) {
-      return context.app.service('donvi').get(user.DonviId)
+      var d = await context.app.service('donvi').get(user.DonviId) || null;
+      if (d) {
+        return d;
+      }
+
     }
 
   }),
   phong: virtual(async (user, context) => {
     // Associate the Donvi that Phong belongs to
     if (user.PhongId) {
-      return context.app.service('phong').get(user.PhongId)
+      let p = await context.app.service('phong').get(user.PhongId) || null;
+      return p
+
     }
 
   })

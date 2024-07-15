@@ -1,3 +1,5 @@
+
+
 import { thongbao } from './thongbao/thongbao'
 import { upload } from './upload/upload'
 import { nhomct } from './nhomct/nhomct'
@@ -10,6 +12,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+
   app.configure(thongbao)
   app.configure(upload)
   app.configure(nhomct)
