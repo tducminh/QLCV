@@ -7,6 +7,7 @@ import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
 import type { TaskService } from './tasks.class'
 import { userSchema } from '../users/users.schema'
+import { donviSchema } from '../donvi/donvi.schema'
 
 // Main data model schema
 export const taskSchema = Type.Object(
@@ -24,7 +25,13 @@ export const taskSchema = Type.Object(
     user: Type.Ref(userSchema),
     createdAt: Type.Optional(Type.String({ format: 'date-time' })),
     point: Type.Optional(Type.Number()),
-    taskId: Type.Optional(Type.Number())
+    taskId: Type.Optional(Type.Number()),
+    isRepeat: Type.Optional(Type.Boolean()),
+    repeatCycle: Type.Optional(Type.Number()),
+    repeatUntil: Type.Optional(Type.String({ format: 'date-time' })),
+    isCanceled: Type.Optional(Type.Boolean()),
+    donviId: Type.Optional(Type.Number()),
+    donvi: Type.Ref(donviSchema),
   },
   { $id: 'Task', additionalProperties: false }
 )
@@ -35,19 +42,29 @@ export const taskResolver = resolve<Task, HookContext<TaskService>>({
     // Associate the user that sent the task
     return context.app.service('users').get(task.userId)
   }),
+  donvi: virtual(async (task, context) => {
+    if (task.donviId) {
+      var d = await context.app.service('donvi').get(task.donviId)
+      if (d) {
+        return d;
+      }
+    }
 
+  }),
 })
 
 export const taskExternalResolver = resolve<Task, HookContext<TaskService>>({})
 
 // Schema for creating new entries
-export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate', 'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo'], {
+export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate',
+  'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo',
+  'isRepeat', 'repeatCycle', 'isCanceled', 'repeatUntil', 'donviId'], {
   $id: 'TaskData'
 })
 export type TaskData = Static<typeof taskDataSchema>
 export const taskDataValidator = getValidator(taskDataSchema, dataValidator)
 export const taskDataResolver = resolve<Task, HookContext<TaskService>>({
-  userId: async (_value, _message, context) => {
+  userId: async (_value, _task, context) => {
     // Associate the record with the id of the authenticated user
     if (context.params.user) {
       return context.params.user.id
@@ -62,11 +79,17 @@ export const taskDataResolver = resolve<Task, HookContext<TaskService>>({
     }
   },
   completed: async () => false,
-  taskId: async (_value, _message, context) => {
+  taskId: async (_value, _task, context) => {
     if (_value) {
       return _value;
     }
+  },
+  donviId: async (_value, _task, context) => {
+    if (context.params.user) {
+      return context.params.user.DonviId;
+    }
   }
+
 })
 
 // Schema for updating existing entries
@@ -79,7 +102,8 @@ export const taskPatchResolver = resolve<Task, HookContext<TaskService>>({})
 
 // Schema for allowed query properties
 export const taskQueryProperties = Type.Pick(taskSchema, ['id', 'text', 'description', 'assignedTo',
-  'dueDate', 'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo'], {
+  'dueDate', 'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo',
+  'isRepeat', 'repeatCycle', 'isCanceled', 'repeatUntil', 'donviId'], {
 
 })
 export const taskQuerySchema = Type.Intersect(
