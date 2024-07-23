@@ -4,24 +4,26 @@ import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
 
 import type { Application } from '../../declarations'
-import type { Donvi, DonviData, DonviPatch, DonviQuery } from './donvi.schema'
+import type { TotalReport, TotalReportData, TotalReportPatch, TotalReportQuery } from './total-report.schema'
 
-export type { Donvi, DonviData, DonviPatch, DonviQuery }
+export type { TotalReport, TotalReportData, TotalReportPatch, TotalReportQuery }
 
-export interface DonviParams extends KnexAdapterParams<DonviQuery> { }
+export interface TotalReportParams extends KnexAdapterParams<TotalReportQuery> {
+  user: any
+}
 
 // By default calls the standard Knex adapter service methods but can be customized with your own functionality.
-export class DonviService<ServiceParams extends Params = DonviParams> extends KnexService<
-  Donvi,
-  DonviData,
-  DonviParams,
-  DonviPatch
+export class TotalReportService<ServiceParams extends Params = TotalReportParams> extends KnexService<
+  TotalReport,
+  TotalReportData,
+  TotalReportParams,
+  TotalReportPatch
 > { }
 
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: app.get('paginate'),
     Model: app.get('mssqlClient'),
-    name: 'donvi'
+    name: 'total-report'
   }
 }

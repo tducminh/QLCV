@@ -4,6 +4,17 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { totalReportClient } from './services/total-report/total-report.shared'
+export type {
+  TotalReport,
+  TotalReportData,
+  TotalReportQuery,
+  TotalReportPatch
+} from './services/total-report/total-report.shared'
+
+import { reportClient } from './services/report/report.shared'
+export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
+
 import { reportClient } from './services/report/report.shared'
 export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
 
@@ -88,5 +99,7 @@ export const createClient = <Configuration = any,>(
   client.configure(reportClient)
   client.configure(reportClient)
   client.configure(reportClient)
+  client.configure(reportClient)
+  client.configure(totalReportClient)
   return client
 }

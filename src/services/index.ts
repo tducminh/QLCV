@@ -1,4 +1,5 @@
-
+import { totalReport } from './total-report/total-report'
+import { report } from './report/report'
 
 import { thongbao } from './thongbao/thongbao'
 import { upload } from './upload/upload'
@@ -12,7 +13,8 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
-
+  app.configure(totalReport)
+  app.configure(report)
   app.configure(thongbao)
   app.configure(upload)
   app.configure(nhomct)
