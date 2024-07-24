@@ -12,14 +12,6 @@ export type {
   TotalReportPatch
 } from './services/total-report/total-report.shared'
 
-import { reportClient } from './services/report/report.shared'
-export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
-
-import { reportClient } from './services/report/report.shared'
-export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
-
-import { reportClient } from './services/report/report.shared'
-export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
 
 import { reportClient } from './services/report/report.shared'
 export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
@@ -32,8 +24,7 @@ export type {
   ThongbaoPatch
 } from './services/thongbao/thongbao.shared'
 
-import { uploadClient } from './services/upload/upload.shared'
-export type { Upload, UploadData, UploadQuery, UploadPatch } from './services/upload/upload.shared'
+
 
 import { uploadClient } from './services/upload/upload.shared'
 export type { Upload, UploadData, UploadQuery, UploadPatch } from './services/upload/upload.shared'
@@ -65,7 +56,7 @@ export interface Configuration {
   connection: TransportConnection<ServiceTypes>
 }
 
-export interface ServiceTypes {}
+export interface ServiceTypes { }
 
 export type ClientApplication = Application<ServiceTypes, Configuration>
 
@@ -94,12 +85,10 @@ export const createClient = <Configuration = any,>(
   client.configure(taskcommentsClient)
   client.configure(nhomctClient)
   client.configure(uploadClient)
-  client.configure(uploadClient)
+
   client.configure(thongbaoClient)
   client.configure(reportClient)
-  client.configure(reportClient)
-  client.configure(reportClient)
-  client.configure(reportClient)
+
   client.configure(totalReportClient)
   return client
 }

@@ -19,6 +19,7 @@ export const reportSchema = Type.Object(
     userId: Type.Number(),
     DonviId: Type.Optional(Type.Number()),
     PhongId: Type.Optional(Type.Number()),
+    PhongName: Type.Optional(Type.String()),
     points: Type.Number(),
     tCount: Type.Number(),
     note: Type.Optional(Type.String()),
@@ -37,7 +38,7 @@ export const reportResolver = resolve<Report, HookContext<ReportService>>({
 export const reportExternalResolver = resolve<Report, HookContext<ReportService>>({})
 
 // Schema for creating new entries
-export const reportDataSchema = Type.Pick(reportSchema, ['createdAt', 'userId', 'DonviId', 'PhongId', 'points', 'tCount', 'note', 'rptName'], {
+export const reportDataSchema = Type.Pick(reportSchema, ['createdAt', 'userId', 'DonviId', 'PhongId', 'PhongName', 'points', 'tCount', 'note', 'rptName'], {
   $id: 'ReportData'
 })
 export type ReportData = Static<typeof reportDataSchema>
@@ -55,7 +56,7 @@ export const reportPatchValidator = getValidator(reportPatchSchema, dataValidato
 export const reportPatchResolver = resolve<Report, HookContext<ReportService>>({})
 
 // Schema for allowed query properties
-export const reportQueryProperties = Type.Pick(reportSchema, ['id', 'createdAt', 'userId', 'DonviId', 'PhongId', 'points', 'tCount', 'note', 'rptName'], {
+export const reportQueryProperties = Type.Pick(reportSchema, ['id', 'createdAt', 'userId', 'DonviId', 'PhongId', 'PhongName', 'points', 'tCount', 'note', 'rptName'], {
 
 })
 export const reportQuerySchema = Type.Intersect(

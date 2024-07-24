@@ -26,7 +26,7 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
 
     let rpt = 'Top5Users';
     let u = _params;
-    console.log(u?.query?.DonviId);
+    //console.log(u?.query?.DonviId);
     let dv = 0;
 
     let r: Report[] = [];
@@ -56,12 +56,12 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
     return r;
   }
 
-  async findByMonths(_params?: ServiceParams): Promise<Report[]> {
+  async findByPhong(_params?: ServiceParams): Promise<Report[]> {
     const { app } = this.options;
     const knex = app.get('mssqlClient');
 
     let u = _params;
-    console.log(u?.query?.DonviId);
+    //console.log(u?.query?.DonviId);
     let dv = 0;
 
     let r: Report[] = [];
@@ -70,16 +70,16 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
       let dv1 = u?.query?.DonviId;
       dv = parseInt(dv1.toString());
 
-      r = await knex.raw('exec tinhdiem_task ?', [dv]).then((result) => {
+      r = await knex.raw('exec tinhdiem_phong_task ?', [dv]).then((result) => {
 
         result.forEach((item: any) => {
           r.push(item);
         });
-        // console.log(r);
+
         return r;
       });
     } else {
-      r = await knex.raw('exec tinhdiem_task ?', [0]).then((result) => {
+      r = await knex.raw('exec tinhdiem_phong_task ?', [0]).then((result) => {
 
         result.forEach((item: any) => {
           r.push(item);
