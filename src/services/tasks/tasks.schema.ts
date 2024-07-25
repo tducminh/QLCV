@@ -82,11 +82,15 @@ export const taskDataResolver = resolve<Task, HookContext<TaskService>>({
   taskId: async (_value, _task, context) => {
     if (_value) {
       return _value;
+    } else {
+      return 0;
     }
   },
   donviId: async (_value, _task, context) => {
     if (context.params.user) {
       return context.params.user.DonviId;
+    } else {
+      return 0;
     }
   }
 

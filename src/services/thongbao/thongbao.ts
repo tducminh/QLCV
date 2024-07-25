@@ -34,7 +34,7 @@ export const thongbao = (app: Application) => {
   app.service(thongbaoPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
+
         schemaHooks.resolveExternal(thongbaoExternalResolver),
         schemaHooks.resolveResult(thongbaoResolver)
       ]
@@ -47,10 +47,12 @@ export const thongbao = (app: Application) => {
       find: [],
       get: [],
       create: [
+        authenticate('jwt'),
         schemaHooks.validateData(thongbaoDataValidator),
         schemaHooks.resolveData(thongbaoDataResolver)
       ],
       patch: [
+        authenticate('jwt'),
         schemaHooks.validateData(thongbaoPatchValidator),
         schemaHooks.resolveData(thongbaoPatchResolver)
       ],
