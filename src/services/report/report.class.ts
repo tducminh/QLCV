@@ -3,6 +3,7 @@ import type { Id, NullableId, Params, ServiceInterface } from '@feathersjs/feath
 import { KnexService } from '@feathersjs/knex'
 import type { Application } from '../../declarations'
 import type { Report, ReportData, ReportPatch, ReportQuery } from './report.schema'
+import { query } from 'winston'
 
 export type { Report, ReportData, ReportPatch, ReportQuery }
 
@@ -55,7 +56,44 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
     }
     return r;
   }
+  // findTop10UserPhong
+  async findTop10UserPhong(_params?: ServiceParams): Promise<Report[]> {
+    const { app } = this.options;
+    const knex = app.get('mssqlClient');
 
+    let rpt = 'Top10UsersPhong';
+    let u = _params;
+    //console.log(u?.query?.DonviId);
+    let dv = 0;
+
+    let r: Report[] = [];
+
+    if (u?.query?.DonviId && u?.query?.PhongId) {
+      let dv1 = u?.query?.DonviId;
+      dv = parseInt(dv1.toString());
+      let p1 = u?.query?.PhongId;
+      let p = parseInt(p1.toString());
+
+      r = await knex.raw('exec tinhdiem_userPhong_task ?, ?', [dv, p]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    } else {
+      r = await knex.raw('exec tinhdiem_userPhong_task ?, ?', [0, 0]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    }
+    return r;
+  }
   async findByPhong(_params?: ServiceParams): Promise<Report[]> {
     const { app } = this.options;
     const knex = app.get('mssqlClient');
