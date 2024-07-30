@@ -30,5 +30,22 @@
       "algorithm": "HS256",
       "expiresIn": "1d"
     }
+  },
+  "smtpConfig": {
+    "host": "localhost",
+    "port": 587,
+    "tls": {
+        "rejectUnauthorized": true,
+        "minVersion": "TLSv1.2"
+    },
+    "secure": false,
+    "auth": {
+      "user": "username",
+      "pass": "password"
+    },
+    "from": {
+      "name": "Mail VSDVN",
+      "email": "qlgv@vsdvn.vn"
+    }
   }
 }

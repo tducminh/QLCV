@@ -1,3 +1,4 @@
+import { mailer } from './mailer/mailer'
 import { totalReport } from './total-report/total-report'
 import { report } from './report/report'
 
@@ -13,6 +14,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(mailer)
   app.configure(totalReport)
   app.configure(report)
   app.configure(thongbao)

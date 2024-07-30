@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { mailerClient } from './services/mailer/mailer.shared'
+export type { Mailer, MailerData, MailerQuery, MailerPatch } from './services/mailer/mailer.shared'
+
 import { totalReportClient } from './services/total-report/total-report.shared'
 export type {
   TotalReport,
@@ -11,7 +14,6 @@ export type {
   TotalReportQuery,
   TotalReportPatch
 } from './services/total-report/total-report.shared'
-
 
 import { reportClient } from './services/report/report.shared'
 export type { Report, ReportData, ReportQuery, ReportPatch } from './services/report/report.shared'
@@ -23,8 +25,6 @@ export type {
   ThongbaoQuery,
   ThongbaoPatch
 } from './services/thongbao/thongbao.shared'
-
-
 
 import { uploadClient } from './services/upload/upload.shared'
 export type { Upload, UploadData, UploadQuery, UploadPatch } from './services/upload/upload.shared'
@@ -56,7 +56,7 @@ export interface Configuration {
   connection: TransportConnection<ServiceTypes>
 }
 
-export interface ServiceTypes { }
+export interface ServiceTypes {}
 
 export type ClientApplication = Application<ServiceTypes, Configuration>
 
@@ -90,5 +90,6 @@ export const createClient = <Configuration = any,>(
   client.configure(reportClient)
 
   client.configure(totalReportClient)
+  client.configure(mailerClient)
   return client
 }
