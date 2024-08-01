@@ -27,6 +27,8 @@ export const reportSchema = Type.Object(
     donvi: Type.Ref(donviSchema),
     phong: Type.Ref(phongSchema),
     rptName: Type.String(),
+    tuNgay: Type.Optional(Type.String({ format: 'date-time' })),
+    denNgay: Type.Optional(Type.String({ format: 'date-time' })),
   },
   { $id: 'Report', additionalProperties: false }
 )
@@ -56,7 +58,7 @@ export const reportPatchValidator = getValidator(reportPatchSchema, dataValidato
 export const reportPatchResolver = resolve<Report, HookContext<ReportService>>({})
 
 // Schema for allowed query properties
-export const reportQueryProperties = Type.Pick(reportSchema, ['id', 'createdAt', 'userId', 'DonviId', 'PhongId', 'PhongName', 'points', 'tCount', 'note', 'rptName'], {
+export const reportQueryProperties = Type.Pick(reportSchema, ['id', 'createdAt', 'userId', 'DonviId', 'PhongId', 'PhongName', 'points', 'tCount', 'note', 'rptName', 'tuNgay', 'denNgay'], {
 
 })
 export const reportQuerySchema = Type.Intersect(

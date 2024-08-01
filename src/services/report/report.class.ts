@@ -56,6 +56,47 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
     }
     return r;
   }
+  async findTG(_params?: ServiceParams): Promise<Report[]> {
+    const { app } = this.options;
+    const knex = app.get('mssqlClient');
+
+    let rpt = 'Top5Users';
+    let u = _params;
+    //console.log(u?.query?.DonviId);
+    let dv = 0;
+    let tuNgay = '';
+    let denNgay = '';
+
+    let r: Report[] = [];
+
+    if (u?.query?.DonviId && u?.query?.tuNgay && u?.query?.denNgay) {
+      let dv1 = u?.query?.DonviId;
+      dv = parseInt(dv1.toString());
+      let tn1 = u?.query?.tuNgay;
+      tuNgay = tn1.toString();
+      let dn1 = u?.query?.denNgay;
+      denNgay = dn1.toString();
+
+      r = await knex.raw('exec tinhdiem_task_tg ?, ?, ?', [dv, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    } else {
+      r = await knex.raw('exec tinhdiem_task_tg ?, ?, ?', [0, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    }
+    return r;
+  }
   // findTop10UserPhong
   async findTop10UserPhong(_params?: ServiceParams): Promise<Report[]> {
     const { app } = this.options;
@@ -94,6 +135,51 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
     }
     return r;
   }
+  // findTop10UserPhongTG
+  async findTop10UserPhongTG(_params?: ServiceParams): Promise<Report[]> {
+    const { app } = this.options;
+    const knex = app.get('mssqlClient');
+
+    let rpt = 'Top10UsersPhong';
+    let u = _params;
+    //console.log(u?.query?.DonviId);
+    let dv = 0;
+    let tuNgay = '';
+    let denNgay = '';
+
+    let r: Report[] = [];
+
+    if (u?.query?.DonviId && u?.query?.PhongId && u?.query?.tuNgay && u?.query?.denNgay) {
+      let dv1 = u?.query?.DonviId;
+      dv = parseInt(dv1.toString());
+      let p1 = u?.query?.PhongId;
+      let p = parseInt(p1.toString());
+
+      let tn1 = u?.query?.tuNgay;
+      tuNgay = tn1.toString();
+      let dn1 = u?.query?.denNgay;
+      denNgay = dn1.toString();
+
+      r = await knex.raw('exec tinhdiem_userPhong_task_tg ?, ?, ?, ?', [dv, p, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    } else {
+      r = await knex.raw('exec tinhdiem_userPhong_task ?, ?, ?, ?', [0, 0, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    }
+    return r;
+  }
   async findByPhong(_params?: ServiceParams): Promise<Report[]> {
     const { app } = this.options;
     const knex = app.get('mssqlClient');
@@ -118,6 +204,47 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
       });
     } else {
       r = await knex.raw('exec tinhdiem_phong_task ?', [0]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    }
+    return r;
+  }
+
+  async findByPhongTG(_params?: ServiceParams): Promise<Report[]> {
+    const { app } = this.options;
+    const knex = app.get('mssqlClient');
+
+    let u = _params;
+    //console.log(u?.query?.DonviId);
+    let dv = 0;
+    let tuNgay = '';
+    let denNgay = '';
+
+    let r: Report[] = [];
+
+    if (u?.query?.DonviId && u?.query?.tuNgay && u?.query?.denNgay) {
+      let dv1 = u?.query?.DonviId;
+      dv = parseInt(dv1.toString());
+      let tn1 = u?.query?.tuNgay;
+      tuNgay = tn1.toString();
+      let dn1 = u?.query?.denNgay;
+      denNgay = dn1.toString();
+
+      r = await knex.raw('exec tinhdiem_phong_task_tg ?, ?, ?', [dv, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+
+        return r;
+      });
+    } else {
+      r = await knex.raw('exec tinhdiem_phong_task_tg ?, ?, ?', [0, tuNgay, denNgay]).then((result) => {
 
         result.forEach((item: any) => {
           r.push(item);
