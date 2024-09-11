@@ -4,6 +4,38 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { msgAttachmentsClient } from './services/msg-attachments/msg-attachments.shared'
+export type {
+  MsgAttachments,
+  MsgAttachmentsData,
+  MsgAttachmentsQuery,
+  MsgAttachmentsPatch
+} from './services/msg-attachments/msg-attachments.shared'
+
+import { messagesClient } from './services/messages/messages.shared'
+export type {
+  Messages,
+  MessagesData,
+  MessagesQuery,
+  MessagesPatch
+} from './services/messages/messages.shared'
+
+import { participantsClient } from './services/participants/participants.shared'
+export type {
+  Participants,
+  ParticipantsData,
+  ParticipantsQuery,
+  ParticipantsPatch
+} from './services/participants/participants.shared'
+
+import { conversationClient } from './services/conversation/conversation.shared'
+export type {
+  Conversation,
+  ConversationData,
+  ConversationQuery,
+  ConversationPatch
+} from './services/conversation/conversation.shared'
+
 import { mailerClient } from './services/mailer/mailer.shared'
 export type { Mailer, MailerData, MailerQuery, MailerPatch } from './services/mailer/mailer.shared'
 
@@ -91,5 +123,9 @@ export const createClient = <Configuration = any,>(
 
   client.configure(totalReportClient)
   client.configure(mailerClient)
+  client.configure(conversationClient)
+  client.configure(participantsClient)
+  client.configure(messagesClient)
+  client.configure(msgAttachmentsClient)
   return client
 }

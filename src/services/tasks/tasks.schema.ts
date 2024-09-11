@@ -19,6 +19,7 @@ export const taskSchema = Type.Object(
     idAssignedTo: Type.Optional(Type.String()),
     dueDate: Type.Optional(Type.String({ format: 'date-time' })),
     completed: Type.Optional(Type.Boolean()),
+    nvCompleted: Type.Optional(Type.Boolean()),
     note: Type.Optional(Type.String()),
     userId: Type.Number(),
     userCreated: Type.Optional(Type.String()),
@@ -58,7 +59,7 @@ export const taskExternalResolver = resolve<Task, HookContext<TaskService>>({})
 // Schema for creating new entries
 export const taskDataSchema = Type.Pick(taskSchema, ['text', 'description', 'assignedTo', 'dueDate',
   'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo',
-  'isRepeat', 'repeatCycle', 'isCanceled', 'repeatUntil', 'donviId'], {
+  'isRepeat', 'repeatCycle', 'isCanceled', 'repeatUntil', 'donviId', 'nvCompleted'], {
   $id: 'TaskData'
 })
 export type TaskData = Static<typeof taskDataSchema>
@@ -107,7 +108,7 @@ export const taskPatchResolver = resolve<Task, HookContext<TaskService>>({})
 // Schema for allowed query properties
 export const taskQueryProperties = Type.Pick(taskSchema, ['id', 'text', 'description', 'assignedTo',
   'dueDate', 'completed', 'note', 'userCreated', 'point', 'taskId', 'userId', 'idAssignedTo',
-  'isRepeat', 'repeatCycle', 'isCanceled', 'repeatUntil', 'donviId'], {
+  'isRepeat', 'repeatCycle', 'isCanceled', 'repeatUntil', 'donviId', 'nvCompleted'], {
 
 })
 export const taskQuerySchema = Type.Intersect(
