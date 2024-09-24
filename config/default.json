@@ -12,7 +12,7 @@
   },
   "mssql": {
     "client": "mssql",
-    "connection": {user: 'ducminh', password: 'Ioit2712', server: '103.220.68.91', port: 1433, database: 'MTEST'}
+    "connection": {user: 'qlcv', password: 'Qlcv@2024', server: '192.168.12.25', port: 1433, database: 'VSD_QLCV'}
   },
   "authentication": {
     "local": {
