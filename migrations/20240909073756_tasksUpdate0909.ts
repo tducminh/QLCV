@@ -3,7 +3,8 @@ import type { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.alterTable('tasks', (table) => {
-        table.integer('point')
+
+        table.boolean('nvCompleted').defaultTo(0)
 
     })
 }
@@ -11,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
 
 export async function down(knex: Knex): Promise<void> {
     await knex.schema.alterTable('tasks', (table) => {
-        table.dropColumn('point')
+        table.dropColumn('nvCompleted')
     })
 }
 

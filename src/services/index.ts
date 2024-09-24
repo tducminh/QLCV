@@ -1,3 +1,7 @@
+import { msgAttachments } from './msg-attachments/msg-attachments'
+import { messages } from './messages/messages'
+import { participants } from './participants/participants'
+import { conversation } from './conversation/conversation'
 import { mailer } from './mailer/mailer'
 import { totalReport } from './total-report/total-report'
 import { report } from './report/report'
@@ -14,6 +18,10 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(msgAttachments)
+  app.configure(messages)
+  app.configure(participants)
+  app.configure(conversation)
   app.configure(mailer)
   app.configure(totalReport)
   app.configure(report)

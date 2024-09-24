@@ -56,6 +56,50 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
     }
     return r;
   }
+
+  async ketxuatTG(_params?: ServiceParams): Promise<Report[]> {
+    const { app } = this.options;
+    const knex = app.get('mssqlClient');
+
+    let rpt = 'KetXuatTaskTG';
+    let u = _params;
+    //console.log(u?.query?.DonviId);
+    let dv = 0;
+    let tuNgay = '';
+    let denNgay = '';
+
+    let r: Report[] = [];
+
+    if (u?.query?.DonviId && u?.query?.tuNgay && u?.query?.denNgay) {
+      let dv1 = u?.query?.DonviId;
+      dv = parseInt(dv1.toString());
+      let tn1 = u?.query?.tuNgay;
+      tuNgay = tn1.toString();
+      let dn1 = u?.query?.denNgay;
+      denNgay = dn1.toString();
+
+      console.log(dv, tuNgay, denNgay);
+
+      r = await knex.raw('exec ketxuat_task_tg ?, ?, ?', [dv, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        //console.log(r);
+        return r;
+      });
+    } else {
+      r = await knex.raw('exec ketxuat_task_tg ?, ?, ?', [0, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    }
+    return r;
+  }
   async findTG(_params?: ServiceParams): Promise<Report[]> {
     const { app } = this.options;
     const knex = app.get('mssqlClient');

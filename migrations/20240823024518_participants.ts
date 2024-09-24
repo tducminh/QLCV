@@ -2,17 +2,17 @@
 import type { Knex } from 'knex'
 
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable('nhomct', (table) => {
+  await knex.schema.createTable('participants', (table) => {
     table.increments('id')
 
-    table.string('ma')
-    table.string('ten')
-    table.string('ghichu')
     table.string('createdAt')
-
+    table.string('updatedAt')
+    table.integer('type')
+    table.integer('conversationId')
+    table.integer('userId')
   })
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable('nhomct')
+  await knex.schema.dropTable('participants')
 }
