@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { fixedTasksClient } from './services/fixed-tasks/fixed-tasks.shared'
+export type {
+  FixedTasks,
+  FixedTasksData,
+  FixedTasksQuery,
+  FixedTasksPatch
+} from './services/fixed-tasks/fixed-tasks.shared'
+
 import { msgAttachmentsClient } from './services/msg-attachments/msg-attachments.shared'
 export type {
   MsgAttachments,
@@ -127,5 +135,6 @@ export const createClient = <Configuration = any,>(
   client.configure(participantsClient)
   client.configure(messagesClient)
   client.configure(msgAttachmentsClient)
+  client.configure(fixedTasksClient)
   return client
 }

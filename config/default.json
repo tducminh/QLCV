@@ -10,9 +10,14 @@
     "default": 100,
     "max": 500
   },
+  //svr Viện: 103.220.68.91
   "mssql": {
     "client": "mssql",
-    "connection": {user: 'qlcv', password: 'Qlcv@2024', server: '192.168.12.25', port: 1433, database: 'VSD_QLCV'}
+    "connection": {user: 'ducminh', password: 'Ioit2712', server: '103.220.68.91', port: 1433, database: 'MTEST'},
+    "pool": {
+      "min": 0,
+      "max": 1000
+    }
   },
   "authentication": {
     "local": {
