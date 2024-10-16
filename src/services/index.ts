@@ -1,3 +1,4 @@
+import { fixedTasks } from './fixed-tasks/fixed-tasks'
 import { msgAttachments } from './msg-attachments/msg-attachments'
 import { messages } from './messages/messages'
 import { participants } from './participants/participants'
@@ -18,6 +19,7 @@ import { user } from './users/users'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(fixedTasks)
   app.configure(msgAttachments)
   app.configure(messages)
   app.configure(participants)
