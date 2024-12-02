@@ -7,7 +7,7 @@
     "http://localhost:3000"
   ],
   "paginate": {
-    "default": 100,
+    "default": 10,
     "max": 500
   },
   //svr Viện: 103.220.68.91
