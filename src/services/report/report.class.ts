@@ -100,6 +100,55 @@ export class ReportService<ServiceParams extends ReportParams = ReportParams>
     }
     return r;
   }
+  async ketxuatPHONG(_params?: ServiceParams): Promise<Report[]> {
+    const { app } = this.options;
+    const knex = app.get('mssqlClient');
+
+    let rpt = 'KetXuatTaskPHONG';
+    let u = _params;
+    //console.log(u?.query?.DonviId);
+    let dv = 0;
+    let p = 0;
+    let tuNgay = '';
+    let denNgay = '';
+
+    let r: Report[] = [];
+
+
+
+    if (u?.query?.DonviId && u?.query?.PhongId && u?.query?.tuNgay && u?.query?.denNgay) {
+      let dv1 = u?.query?.DonviId;
+      dv = parseInt(dv1.toString());
+      let p1 = u?.query?.PhongId;
+      p = parseInt(p1.toString());
+      let tn1 = u?.query?.tuNgay;
+      tuNgay = tn1.toString();
+      let dn1 = u?.query?.denNgay;
+      denNgay = dn1.toString();
+
+      console.log('PARAMS: ', dv, p, tuNgay, denNgay);
+
+      r = await knex.raw('exec ketxuat_task_phong ?, ?, ?, ?', [dv, p, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        console.log(r);
+        return r;
+      });
+    } else {
+      console.log('NO PARAMS');
+      r = await knex.raw('exec ketxuat_task_phong ?, ?, ?, ?', [0, 0, tuNgay, denNgay]).then((result) => {
+
+        result.forEach((item: any) => {
+          r.push(item);
+        });
+        // console.log(r);
+        return r;
+      });
+    }
+    return r;
+  }
   async findTG(_params?: ServiceParams): Promise<Report[]> {
     const { app } = this.options;
     const knex = app.get('mssqlClient');
